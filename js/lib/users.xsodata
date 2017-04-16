@@ -1,0 +1,5 @@
+service {
+
+  "xsa001.db::UserCase.User" as "user" keys generate local "ID";
+
+}
