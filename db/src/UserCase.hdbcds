@@ -1,0 +1,6 @@
+context UserCase {
+   entity User {
+      key USERID : String(20);
+          name   : String(20);
+   }
+}
