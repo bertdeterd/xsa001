@@ -1,0 +1,8 @@
+{
+  "xsa001.db::DUMMY": {
+    "target": {
+      "object": "DUMMY",
+      "schema": "SYS"
+    }
+  }
+}
