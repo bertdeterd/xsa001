@@ -1,10 +1,8 @@
 #This file is a design-time descriptor, that will be used by the platform to create a deployment descriptor. This file contains 
 #information related to the application (ID, version, description) as well as resources, 
 #modules and parameters that will be deployed and required at runtime.
-
 #create uaa service
 #xs create-service xsuaa default hana_xsa001-uaa
-
 _schema-version: '2.0'
 ID: xsa001
 version: 0.0.1
@@ -14,10 +12,10 @@ modules:
    type: html5
    path: web
    requires:
-      - name: hana_xsa001-uaa
-
-   resources:
     - name: hana_xsa001-uaa
-      type: com.sap.xs.uaa
-      parameters:
-        config_path: ./xs-security.json
+   
+resources:
+ - name: hana_xsa001-uaa
+   type: com.sap.xs.uaa
+   parameters:
+    config_path: ./xs-security.json

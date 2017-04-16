@@ -1,5 +1,5 @@
 {
-	"welcomeFile": "index.html",
-	"authenticationMethod": "none",
-	"routes": []
+  "welcomeFile": "index.html",
+  "authenticationMethod": "route",
+  "routes": []
 }
