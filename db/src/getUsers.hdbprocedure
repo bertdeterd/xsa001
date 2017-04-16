@@ -1,0 +1,14 @@
+PROCEDURE "xsa001.db::getUsers" ( OUT ex_users "xsa001.db::UserCase.User" )
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   READS SQL DATA AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+    ex_users =
+  	     select *
+  	              from "xsa001.db::UserCase.User" ;
+  	              
+END

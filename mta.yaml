@@ -21,6 +21,11 @@ modules:
    requires:
     - name: hdi-container
 
+
+ - name: js
+   type: nodejs
+   path: js
+
 resources:
  - name: hana_xsa001-uaa
    type: com.sap.xs.uaa
