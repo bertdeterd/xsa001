@@ -19,6 +19,8 @@
 
 	// attach an action to the button's "press" event (use jQuery to fade out the button)
 	myButton.attachPress(function(){$("#btn").fadeOut()});
+	
+	var oModel = new sap.ui.model.odata.ODataModel( "/users.xsodata");
 
 	// place the button into the HTML element defined below
 	myButton.placeAt("uiArea");
