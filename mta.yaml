@@ -13,7 +13,13 @@ modules:
    path: web
    requires:
     - name: hana_xsa001-uaa
-   
+    - name: nodejs
+      group: destinations
+      properties:
+        name: nodejs
+        url: ~{url}
+        forwardAuthToken: true
+        
 
  - name: db
    type: hdb
