@@ -25,6 +25,15 @@ modules:
  - name: js
    type: nodejs
    path: js
+   provides:
+    - name: nodejs
+      properties:
+       url: "${default-url}"
+   requires:
+    - name: hana_xsa001-uaa
+    - name: db
+    - name: hdi-container
+  
 
 resources:
  - name: hana_xsa001-uaa
