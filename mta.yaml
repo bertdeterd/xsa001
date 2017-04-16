@@ -14,8 +14,24 @@ modules:
    requires:
     - name: hana_xsa001-uaa
    
+
+ - name: db
+   type: hdb
+   path: db
+   requires:
+    - name: hdi-container
+
 resources:
  - name: hana_xsa001-uaa
    type: com.sap.xs.uaa
    parameters:
     config_path: ./xs-security.json
+
+ - name: hdi-container
+   parameters:
+      config:
+         schema: XSA001
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container
+
