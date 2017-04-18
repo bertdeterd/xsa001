@@ -19,7 +19,6 @@ var options = xsjs.extend({
 	redirectUrl : "/index.xsjs"
 });
 
-
 try {
 	options = Object.assign(options, xsenv.getServices({ hana: {tag: "hana"} }));
 } catch (err) {
