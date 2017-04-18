@@ -9,9 +9,14 @@ var userRouter = express.Router();
 
 var router = function() {
 
+	var app = express();
+	app.use(bodyParser.json());
+	
+	//var pool = xsHDBConn.createPool();
+
 	userRouter.route('/users')
 		.get(function(req, res) {
-			 res.send("Hello World Node.js");
+			res.send("Hello World Node.js");
 		});
 	return userRouter;
 };
