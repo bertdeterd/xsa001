@@ -4,27 +4,42 @@
 var xsjs  = require("sap-xsjs");
 var xsenv = require("sap-xsenv");
 var port  = process.env.PORT || 3000;
+var server = require('http').createServer();
+var express = require("express");
 
-var options = {
-//	anonymous : true, // remove to authenticate calls
+var userRouter = require("./api/users/users_api");
+
+var app = express();
+
+//also add /api route to xs-app.json 
+app.use("/api", userRouter());
+
+var options = xsjs.extend({
+	//anonymous : true, // remove to authenticate calls
 	redirectUrl : "/index.xsjs"
-};
+});
 
-// configure HANA
+
 try {
 	options = Object.assign(options, xsenv.getServices({ hana: {tag: "hana"} }));
 } catch (err) {
 	console.log("[WARN]", err.message);
 }
 
-// configure UAA
+
 try {
 	options = Object.assign(options, xsenv.getServices({ uaa: {tag: "xsuaa"} }));
 } catch (err) {
 	console.log("[WARN]", err.message);
 }
 
-// start server
-xsjs(options).listen(port);
+//Add XSJS to the base app
+var xsjsApp = xsjs(options);
+app.use(xsjsApp);
 
-console.log("Server listening on port %d", port);
+server.on('request', app);
+server.listen(port, function () {
+    console.log('HTTP Server: ' + server.address().port );
+});
+
+
