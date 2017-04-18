@@ -16,12 +16,28 @@
 	var myButton = new sap.m.Button("btn");
 
 	// set properties, e.g. the text (there is also a shorter way of setting several properties)
-	myButton.setText("Hello World!");
-
-	// attach an action to the button's "press" event (use jQuery to fade out the button)
-	myButton.attachPress(function(){$("#btn").fadeOut()});
-	
+	myButton.setText("Nieuwe naam opslaan");
 	var oModel = new sap.ui.model.odata.ODataModel( "/users.xsodata", true);
+	// attach an action to the button's "press" event (use jQuery to fade out the button)
+	myButton.attachPress(
+		function(){
+			//$("#btn").fadeOut()
+			var txt = sap.ui.getCore().byId("newInput").getValue() ;
+			var oEntry = {};
+			oEntry.USERID = txt;
+			oEntry.name = txt;
+			jQuery.sap.require("sap.ui.commons.MessageBox");
+			oModel.create('/users', oEntry, null, function(){
+			 sap.ui.commons.MessageBox.show(
+        		//sap.ui.commons.MessageBox.alert("Success!");
+    		);
+    		},function(){
+    			sap.ui.commons.MessageBox.alert("Error!");
+			});
+			
+		});
+	
+
 
 	//Insert
 	var oTable = new sap.ui.table.Table({ tableId: "mytable"}); 
@@ -29,11 +45,13 @@
 	
 	var oControl = new sap.ui.commons.TextView({text: "{name}"}); // 
 	oTable.addColumn(new sap.ui.table.Column({ label: new sap.ui.commons.Label({text: "Naam"}), visible: true, template: oControl })); // 
-	 oTable.bindRows("/users"); 
+	oTable.bindRows("/users"); 
 	oTable.placeAt("uiArea");
 	
+	var newInput = new sap.m.Input("newInput"); // 
+	newInput.placeAt("newArea");
 	//end insert
-	
+		myButton.placeAt("newOK");
 
 	// place the button into the HTML element defined below
 	//myButton.placeAt("uiArea");
@@ -42,5 +60,7 @@
 <body class="sapUiBody">
 	<!-- This is where you place the UI5 button -->
 	<div id="uiArea"></div>
+		<div id="newArea"></div>
+		<div id="newOK"></div>
 </body>
 </html>
