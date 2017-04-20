@@ -28,6 +28,10 @@
 			"source": "/(.*)",
 			"localDir": "resources",
 			"authenticationType": "xsuaa",
+			"scope": {
+				"GET": "$XSAPPNAME.Display",
+				"default": "$XSAPPNAME.Display"
+			},
 			"replace": {
 				"pathSuffixes": ["index.html", "odataTest.html"],
 				"vars": ["ui5liburl"]

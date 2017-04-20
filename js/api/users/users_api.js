@@ -1,24 +1,59 @@
 "use strict";
-var express = require("express");
-var bodyParser = require("body-parser");
-var xssec = require("sap-xssec");
-var xsHDBConn = require("sap-hdbext");
-var xsenv = require("sap-xsenv");
+const router = require("express").Router();
+const hdb = require("sap-hdbext");
+const cds = require("sap-cds");
 
-var userRouter = express.Router();
+var oUser = null;
 
-var router = function() {
+cds.$importEntities([{
+		$entity: "xsa001.db::UserCase.User"
+	}, {
+		$entity: "xsa001.db::UserCase.Divers"
+	}],
+	(error, entities) => {
+		oUser = entities['xsa001.db::UserCase.User'];
+	}
+);
 
-	var app = express();
-	app.use(bodyParser.json());
-	
-	//var pool = xsHDBConn.createPool();
+router.get("/users", (req, res) => {
+	oUser.$query().$execute( (err, results) => {
+		if (err) {
+			res.type("text/plain").status(500).send("ERROR: " + err);
+		} else {
+			res.type("application/json").status(200).send(results);
+		}
+	});
+});
 
-	userRouter.route('/users')
-		.get(function(req, res) {
-			res.send("Hello World Node.js");
-		});
-	return userRouter;
-};
+
+
+
+
+router.get("/users", (req, res) => {
+	oUser.$query().$execute(function(err, results) {
+		if (err) {
+			res.type("text/plain").status(500).send("ERROR: " + err);
+		} else {
+			res.type("application/json").status(200).send(results);
+		}
+	});
+});
+
+router.get("/", (req, res) => res.send("Hello World Node.js"));
+
+//const query =
+//	`SELECT "name" FROM "xsa001.db::UserCase.User"`; //" "OGJPTBOE5TDDC3IK_PHRADIUM_SCHEMA"."PurchaseOrder.Header"`;
+
+/*
+client.prepare(query, (err, statement) => {
+	statement.exec([], (err, results) => {
+		if (err) {
+			res.type("text/plain").status(500).send("ERROR: " + err);
+		} else {
+			res.type("application/json").status(200).send(res);
+		}
+	});
+});
+*/
 
 module.exports = router;

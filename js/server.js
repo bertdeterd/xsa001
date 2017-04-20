@@ -1,44 +1,28 @@
 /*eslint no-console: 0, no-unused-vars: 0*/
 "use strict";
 
-var xsjs  = require("sap-xsjs");
-var xsenv = require("sap-xsenv");
-var port  = process.env.PORT || 3000;
-var server = require('http').createServer();
-var express = require("express");
+const xsjs  = require("sap-xsjs");
+const xsenv = require("sap-xsenv");
+const port  = process.env.PORT || 3000;
+const server = require("http").createServer();
 
-var userRouter = require("./api/users/users_api");
+const init = require("./initialize");
+//const node = require("./myNode");
+const userRouter = require("./api/users/users_api");
 
-var app = express();
-
-//also add /api route to xs-app.json 
-app.use("/api", userRouter());
-
-var options = xsjs.extend({
+const options = {
 	//anonymous : true, // remove to authenticate calls
 	redirectUrl : "/index.xsjs"
-});
+};
 
-try {
-	options = Object.assign(options, xsenv.getServices({ hana: {tag: "hana"} }));
-} catch (err) {
-	console.log("[WARN]", err.message);
-}
+const app = init.initExpress();
 
+app.use("/api", userRouter);
 
-try {
-	options = Object.assign(options, xsenv.getServices({ uaa: {tag: "xsuaa"} }));
-} catch (err) {
-	console.log("[WARN]", err.message);
-}
+init.initXSJS(app);
 
-//Add XSJS to the base app
-var xsjsApp = xsjs(options);
-app.use(xsjsApp);
-
-server.on('request', app);
-server.listen(port, function () {
-    console.log('HTTP Server: ' + server.address().port );
-});
+// start server
+server.on("request", app);
+server.listen(port, () => console.info("Server listening on port %d", port))
 
 

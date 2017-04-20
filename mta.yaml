@@ -13,6 +13,9 @@ modules:
    path: web
    requires:
     - name: hana_xsa001-uaa
+    - name: ui5-lib
+      properties:
+        ui5liburl: ~{url}     
     - name: nodejs
       group: destinations
       properties:
@@ -41,6 +44,7 @@ modules:
     - name: hdi-container
   
 
+
 resources:
  - name: hana_xsa001-uaa
    type: com.sap.xs.uaa
@@ -54,4 +58,12 @@ resources:
    properties:
       hdi-container-name: ${service-name}
    type: com.sap.xs.hdi-container
+   
+   
+ - name: ui5-lib
+   type: configuration 
+   parameters:
+      ID: com.sap.ui5.dist.sapui5-dist-xsa.XSAC_SAPUI5_FESV2:sapui5_fesv2 # Specifies the the ID of the provider MTA.
+      name: sapui5_fesv2
+      version: "=1.38.15"     # The version (range) of the provider MTA.     
 

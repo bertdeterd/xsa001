@@ -1,14 +1,18 @@
 {
 	"dependencies": {
-		"sap-xsenv": "1.2.4",
-		"sap-xsjs": "1.11.4",
-		"sap-cds": "latest",
-		"sap-xssec": "latest",
-		"express": "latest",
-		"passport": "latest",
-		"sap-hdbext": "latest",
-		"path": "latest",
-		"body-parser": "latest"
+		"sap-xssec": "0.9.1",
+		"sap-xsenv": "1.2.3",
+		"sap-xsjs": "1.11.3",
+		"sap-hdbext": "4.1.3",
+		"sap-cds": "1.13.4",
+		"sap-logging": "1.4.0",
+		"sap-jobs-client": "1.0.10",
+		"express": "4.12.3",
+		"passport": "0.2.1",
+		"winston": "1.0.0",
+		"async": "1.4.0",
+		"body-parser": "1.13.2"
+
 	},
 
 	"devDependencies": {
